@@ -15,43 +15,36 @@ async function getStocks() {
 
     // 2. Extrair os códigos (ex: PETR4) e transformar para padrão do Yahoo (ex: PETR4.SA)
     const tickers = allTickers
-      .map(stock => stock.ticker + '.SA')
-    .slice(0, 30); // limitar para testes, pode tirar o slice depois
+       .map(stock => stock.ticker + '.SA')
+  
+      //.slice(0, 20); // limitar para testes, pode tirar o slice depois
 
+    
     const results = [];
 
     for (const ticker of tickers) {
       try {
-        const quote = await yahooFinance.quoteSummary(ticker, {
-          modules: ['summaryDetail', 'defaultKeyStatistics', 'financialData'],
+        const result = await yahooFinance.quoteSummary(ticker, {
+          modules: ["price",'summaryDetail', 'defaultKeyStatistics', 'financialData'],
         });
+       
+ 
+        const price = result.price || {};
+        const stats = result.defaultKeyStatistics || {};
+        const financials = result.financialData || {};
+        const summaryDetail = result.summaryDetail || {};
 
-        const {
-          enterpriseValue,
-          ebitda,
-          totalRevenue,
-          profitMargins,
-        } = quote.financialData;
-
-        const { dividendYield } = quote.summaryDetail;
-        // const { averageDailyVolume3Month } = quote.defaultKeyStatistics;
-        const averageDailyVolume3Month = quote.defaultKeyStatistics?.enterpriseValue || 0;
-
-        const evEbit = enterpriseValue && ebitda
-          ? enterpriseValue / ebitda
-          : null;
-
-        const margemEbit = ebitda 
-        // && totalRevenue
-        //   ? ebitda / totalRevenue
-        //   : null;
-
+        const  dividendYield  = summaryDetail.dividendYield; 
+         
+        const evEbit  = stats.enterpriseToEbitda;
+        const ebitMargin = financials.ebitdaMargins;
+        const volume = financials.totalRevenue ;
         results.push({
           ticker,
           ev_ebit: evEbit,
-          margem_ebit: margemEbit,
+          margem_ebit: ebitMargin,
           dividend_yield: dividendYield,
-          volume: averageDailyVolume3Month,
+          volume: volume,
         });
 
       } catch (err) {
