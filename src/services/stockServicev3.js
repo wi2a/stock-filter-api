@@ -120,43 +120,43 @@ function toDecimal(string) {
 module.exports = { getStocksfun };
 
 // Exemplo de uso
-(async () => {
-    console.log('[*] Downloading...');
-    try {
-        const tickers = []; // Deixe a lista de tickers vazia para buscar todos
-        const result = await getStocksfun(tickers);
-        console.log('[*] Download complete.');
+// (async () => {
+//     console.log('[*] Downloading...');
+//     try {
+//         const tickers = []; // Deixe a lista de tickers vazia para buscar todos
+//         const result = await getStocksfun(tickers);
+//         console.log('[*] Download complete.');
 
-        const headers = ['Papel', 'Cotacao', 'P/L', 'P/VP', 'PSR', 'DY', 'P/Ativo', 'P/Cap.Giro', 'P/EBIT', 'P/ACL', 'EV/EBIT', 'EV/EBITDA', 'Mrg.Ebit', 'Mrg.Liq.', 'Liq.Corr.', 'ROIC', 'ROE', 'Liq.2meses', 'Pat.Liq', 'Div.Brut/Pat.', 'Cresc.5anos'];
-        console.log(headers.join(' '));
-        console.log('-'.repeat(190));
+//         const headers = ['Papel', 'Cotacao', 'P/L', 'P/VP', 'PSR', 'DY', 'P/Ativo', 'P/Cap.Giro', 'P/EBIT', 'P/ACL', 'EV/EBIT', 'EV/EBITDA', 'Mrg.Ebit', 'Mrg.Liq.', 'Liq.Corr.', 'ROIC', 'ROE', 'Liq.2meses', 'Pat.Liq', 'Div.Brut/Pat.', 'Cresc.5anos'];
+//         console.log(headers.join(' '));
+//         console.log('-'.repeat(190));
 
-        for (const [key, value] of Object.entries(result)) {
-            console.log([
-                key,
-                value['Cotacao'],
-                value['P/L'],
-                value['P/VP'],
-                value['PSR'],
-                value['DY'],
-                value['P/Ativo'],
-                value['P/Cap.Giro'],
-                value['P/EBIT'],
-               ['P/ACL'],
-                value['EV/EBIT'],
-                value['EV/EBITDA'],
-                value['Mrg.Ebit'],
-                value['Mrg.Liq.'],
-                value['Liq.Corr.'],
-                value['ROIC'],
-                value['ROE'],
-                value['Liq.2meses'],
-                value['Pat.Liq'],
-                value['Div.Brut/Pat.'],
-                value['Cresc.5anos']
-            ].join(' '));
-        }
-    } catch (error) {
-        console.error(error.message);
-    }
-})();
+//         for (const [key, value] of Object.entries(result)) {
+//             console.log([
+//                 key,
+//                 value['Cotacao'],
+//                 value['P/L'],
+//                 value['P/VP'],
+//                 value['PSR'],
+//                 value['DY'],
+//                 value['P/Ativo'],
+//                 value['P/Cap.Giro'],
+//                 value['P/EBIT'],
+//                ['P/ACL'],
+//                 value['EV/EBIT'],
+//                 value['EV/EBITDA'],
+//                 value['Mrg.Ebit'],
+//                 value['Mrg.Liq.'],
+//                 value['Liq.Corr.'],
+//                 value['ROIC'],
+//                 value['ROE'],
+//                 value['Liq.2meses'],
+//                 value['Pat.Liq'],
+//                 value['Div.Brut/Pat.'],
+//                 value['Cresc.5anos']
+//             ].join(' '));
+//         }
+//     } catch (error) {
+//         console.error(error.message);
+//     }
+// })();
